@@ -8,12 +8,12 @@
 <div class="kontener">
     <div id="naglowek"></div>
     <div id="srodek">
-        <div class="wybor">
+        <a class="wybor" href="hamming.jsp">
             hamming
-        </div>
-        <div class="wybor">
+        </a>
+        <a class="wybor" href="crc.jsp">
             crc
-        </div>
+        </a>
     </div>
     <div id="stopka"> xD</div>
 </div>

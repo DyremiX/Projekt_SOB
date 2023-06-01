@@ -1,11 +1,12 @@
 .wybor {
-    background-color: blue;
+    background-color: aqua;
     margin: 10px;
     width: calc(50% - 40px);
     height: calc(50% - 10px);
     text-align: center;
     display: inline-block;
     float: left;
+    text-decoration: none;
 }
 
 #naglowek {
@@ -34,3 +35,40 @@ body {
     height: 100%;
     width: 100%;
 }
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 300px;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+
