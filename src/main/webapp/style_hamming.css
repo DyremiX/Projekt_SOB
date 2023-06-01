@@ -1,0 +1,39 @@
+body {
+    background-color: azure;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+td, th {
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/*td:nth-child(n+3):hover {*/
+/*    filter: brightness(85%);*/
+/*    cursor: pointer;*/
+/*}*/
+
+th:nth-child(3),
+th:nth-child(4),
+th:nth-child(6),
+th:nth-child(10),
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(6),
+td:nth-child(10) {
+    background-color: lightblue;
+}
+
+
+h1 {
+    text-align: center;
+    background-color: lightgray;
+    padding: 10px;
+}

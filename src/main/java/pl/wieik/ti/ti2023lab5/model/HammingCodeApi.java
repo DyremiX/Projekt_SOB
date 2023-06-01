@@ -10,7 +10,30 @@ public class HammingCodeApi {
         }
         return parityBits;
     }
+    public static String extractDataBits(String hammingCode) {
+        StringBuilder dataBits = new StringBuilder();
 
+        for (int i = 0; i < hammingCode.length(); i++) {
+            // Pomijamy bity parzystości (indeksy będące potęgami 2)
+            if (!isPowerOfTwo(i + 1)) {
+                dataBits.append(hammingCode.charAt(i));
+            }
+        }
+
+        return dataBits.toString();
+    }
+    public static boolean isPowerOfTwo(int number) {
+        return (number & (number - 1)) == 0;
+    }
+    public static int[] charToBinaryIntArray(char c) {
+        int[] binaryArray = new int[8]; // Długość tablicy dla 8-bitowego znaku char
+
+        for (int i = 7; i >= 0; i--) {
+            binaryArray[i] = (c & (1 << i)) != 0 ? 1 : 0;
+        }
+
+        return binaryArray;
+    }
     public static int[] convertStringToIntArray(String input) {
         int[] array = new int[input.length()];
         for (int i = 0; i < input.length(); i++) {
