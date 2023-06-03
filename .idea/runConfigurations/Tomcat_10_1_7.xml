@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 10.1.7" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.7" ALTERNATIVE_JRE_ENABLED="false">
-    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:30000/TI2023_Lab5_war_exploded/MD" />
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:30000/TI2023_Lab5_war_exploded/hamming" />
     <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
     <option name="UPDATING_POLICY" value="redeploy-artifacts" />
     <deployment>

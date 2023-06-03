@@ -26,10 +26,12 @@ public class HammingCodeApi {
         return (number & (number - 1)) == 0;
     }
     public static int[] charToBinaryIntArray(char c) {
-        int[] binaryArray = new int[8]; // Długość tablicy dla 8-bitowego znaku char
+        int asciiValue = (int) c;  // Zamiana znaku na wartość liczbową (kod ASCII)
+        String binaryAscii = Integer.toBinaryString(asciiValue);  // Zamiana wartości liczbowej na kod binarny ASCII
 
-        for (int i = 7; i >= 0; i--) {
-            binaryArray[i] = (c & (1 << i)) != 0 ? 1 : 0;
+        int[] binaryArray = new int[binaryAscii.length()];
+        for (int i = 0; i < binaryAscii.length(); i++) {
+            binaryArray[i] = binaryAscii.charAt(i) - '0';  // Konwersja znaku na wartość int (0 lub 1)
         }
 
         return binaryArray;
@@ -89,7 +91,24 @@ public class HammingCodeApi {
             returnData[((int) Math.pow(2, i)) - 1] = getParityBit(returnData, i);
         }
 
-        return returnData;
+        int partiyAllCheck = 0;
+        for (int z = 0 ; z < returnData.length ; z++){
+            if(returnData[z] == 1){
+                if (partiyAllCheck == 0) {
+                    partiyAllCheck = 1;
+                } else {
+                    partiyAllCheck = 0;
+                }
+            }
+        }
+
+        int returnDataFinal[] = new int[size + parityBits + 1];
+        for (int x = 0 ; x < returnData.length ; x++){
+            returnDataFinal[x] = returnData[x];
+        }
+        returnDataFinal[returnDataFinal.length - 1] = partiyAllCheck;
+
+        return returnDataFinal;
     }
 
     public static int getParityBit(int returnData[], int pow) {
@@ -123,11 +142,12 @@ public class HammingCodeApi {
         return parityBit;
     }
 
-    public static int[] receiveData(int data[], int parityBits) {
+    public static HammingResponse receiveData(int data[], int parityBits) {
 
+        HammingResponse response = new HammingResponse();
         // declare variable pow, which we use to get the correct bits to check for parity.
         int pow;
-        int size = data.length;
+        int size = data.length - 1; // -1 beacause last bit is additional bit
         // declare parityArray to store the value of parity check
         int parityArray[] = new int[parityBits];
         // we use errorLoc string for storing the integer value of the error location.
@@ -143,12 +163,10 @@ public class HammingCodeApi {
                 if(bit == 1) {
                     if(data[i] == 1) {
                         parityArray[pow] = (parityArray[pow] + 1) % 2;
-                        // System.out.print("Dla i = " + i + ", pow = " + pow  + ", partiyarray = " + parityArray[pow]);
                     }
                 }
             }
             errorLoc = parityArray[pow] + errorLoc;
-            // System.out.print(errorLoc);
         }
         // This gives us the parity check equation values.
         // Using these values, we will now check if there is a single bit error and then correct it.
@@ -156,40 +174,40 @@ public class HammingCodeApi {
         // if present, we correct it
         int finalLoc = Integer.parseInt(errorLoc, 2);
         // check whether the finalLoc value is 0 or not
-        if(finalLoc != 0) {
-            System.out.println("Error is found at location " + finalLoc + ".");
+        int parityChechAll = 0;
+        for (int i = 0 ; i < data.length ; i++) {
+            if(data[i] == 1){
+                if (parityChechAll == 0) {
+                    parityChechAll = 1;
+                } else {
+                    parityChechAll = 0;
+                }
+            }
+        }
+
+        if(finalLoc != 0 && parityChechAll == 1) {
+
+            response.setMessage("Znaleziono błąd w indexie ["+ finalLoc + "]");
             data[finalLoc - 1] = (data[finalLoc - 1] + 1) % 2;
-            System.out.println("After correcting the error, the code is:");
-            for(int i = 0; i < size; i++) {
-                System.out.print(data[size - i - 1]);
-            }
-            System.out.println();
+            response.setError_loc(finalLoc);
+            response.setResponse(data);
+
+            return response;
+        } else if (finalLoc != 0 && parityChechAll == 0) {
+
+            response.setMessage("Znaleziono dwa błędy.");
+            response.setError_loc(-1);
+            response.setResponse(data);
+
+            return response;
+        } else {
+
+            response.setMessage("Nie znaleziono błędu.");
+            response.setError_loc(-1);
+            response.setResponse(data);
+
+            return response;
         }
-        else {
-            System.out.println("There is no error in the received data.");
-        }
-        // print the original data
-        System.out.println("The data sent from the sender:");
-        int finalCode[] = new int[data.length - parityBits];
-        int x = 0;
-        pow = parityBits - 1;
-        for(int k = size; k > 0; k--) {
-            if(Math.pow(2, pow) != k) {
-                // System.out.print(data[k - 1]);
-                finalCode[finalCode.length - x - 1] = data[k - 1];
-                x++;
-            }
-            else {
-                // decrement value of pow
-                pow--;
-            }
-        }
-        // System.out.println();   // for next line
-        for (int k = 0 ; k < finalCode.length ; k++) {
-            System.out.print(finalCode[k]);
-        }
-        System.out.println();   // for next line
-        return finalCode;
     }
 
 }

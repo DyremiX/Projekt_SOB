@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet(name="MD", value = "/MD")
-public class MD extends HttpServlet {
+@WebServlet(name="main", value = "/main")
+public class main extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
