@@ -8,13 +8,16 @@
 <html>
 <head>
     <title>Kodowanie Hamminga</title>
-    <link rel="stylesheet" type="text/css" href="style_hamming.css">
+    <link rel="stylesheet" type="text/css" href="style_hammingReceriver.css">
 </head>
 <body>
 <h1>Kodowanie Hamminga</h1>
 <h2>Odebrane kody Hamminga:</h2>
 <% HammingResponse tablica[] = tablicaReponse.getTable(); %>
 <%for (int x = 0 ; x < tablica.length; x++) { %>
+<% if(tablica[x].getMessage().equals("Nie znaleziono błędu.")) {
+    continue;
+} %>
 <h3> Dla ID <%= x + 1%> <%= tablica[x].getMessage()%></h3>
 <br>
 <table id="hammingTable">
@@ -48,8 +51,16 @@
     </tr>
 </table>
 <% } %>
-<button onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/main';">Powrót do strony głównej</button>
-<button onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/hamming';">Jeszcze raz</button>
+
+<% StringBuilder stringBuilder = new StringBuilder();
+for (int i = 0 ; i < tablica.length ; i++) {
+    stringBuilder.append(HammingCodeApi.convertBinaryToAscii(tablica[i].getResponse()));
+} %>
+
+<p id="tableValues"><%= stringBuilder.toString()%></p>
+
+<button style="margin: 3px" onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/main';">Powrót do strony głównej</button>
+<button style="margin: 3px" onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/hamming';">Jeszcze raz</button>
 
 
 </body>

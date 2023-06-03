@@ -3,6 +3,32 @@ package pl.wieik.ti.ti2023lab5.model;
 
 public class HammingCodeApi {
 
+    public static char convertBinaryToAscii(int[] inputArray) {
+        int[] indexesToRemove = new int[]{0, 1, 3, 7, inputArray.length - 1};
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < inputArray.length; i++) {
+            if (!contains(indexesToRemove, i)) {
+                stringBuilder.append(inputArray[i]);
+            }
+        }
+
+        String binaryString = stringBuilder.toString();
+        int decimalValue = Integer.parseInt(binaryString, 2);
+        char asciiChar = (char) decimalValue;
+
+        return asciiChar;
+    }
+
+    public static boolean contains(int[] array, int value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static int calculateParityBits(int inputLength) {
         int parityBits = 0;
         while (inputLength + parityBits + 1 > Math.pow(2, parityBits)) {

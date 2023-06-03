@@ -162,8 +162,8 @@
 </table>
 <br>
 <p id="tableValues"><%= inputWord%></p>
-<button onclick="sendHamming()">Wyślij</button>
+<button style="margin: 3px" onclick="sendHamming()">Wyślij</button>
 <% } %>
-<button onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/main';">Powrót do strony głównej</button>
+<button style="margin: 3px" onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/main';">Powrót do strony głównej</button>
 </body>
 </html>
