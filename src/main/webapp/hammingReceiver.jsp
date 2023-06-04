@@ -9,6 +9,7 @@
 <head>
     <title>Kodowanie Hamminga</title>
     <link rel="stylesheet" type="text/css" href="style_hammingReceriver.css">
+    <script type="text/javascript" src="script_hamming.js"></script>
 </head>
 <body>
 <h1>Kodowanie Hamminga</h1>
@@ -61,7 +62,7 @@ for (int i = 0 ; i < tablica.length ; i++) {
 
 <button style="margin: 3px" onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/main';">Powrót do strony głównej</button>
 <button style="margin: 3px" onclick="window.location.href = 'http://localhost:30000/TI2023_Lab5_war_exploded/hamming';">Jeszcze raz</button>
-
+<button onclick="generateReportforReceiver()">Generuj raport</button>
 
 </body>
 </html>

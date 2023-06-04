@@ -33,6 +33,7 @@ public class hamming extends HttpServlet {
         // Odczytanie danych z żądania
         HttpSession session = request.getSession();
         String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        session.setAttribute("inputWord", request.getHeader("inputWord"));
 
         // Przetworzenie danych
         List<List<Integer>> data = new ArrayList<>();
@@ -53,24 +54,30 @@ public class hamming extends HttpServlet {
             return;
         }
 
+        session.setAttribute("notatka", request.getHeader("notatka"));
+
         HammingResponse responseData[] = new HammingResponse[data.size()];
         int tableInput[];
-        for (int i = 0; i < data.size() ; i++) {
+        for (int i = 0; i < data.size(); i++) {
             tableInput = new int[data.get(i).size()];
-            for (int x = 0 ; x < tableInput.length ; x++){
+            for (int x = 0; x < tableInput.length; x++) {
                 tableInput[x] = data.get(i).get(x);
             }
-            responseData[i] = HammingCodeApi.receiveData(tableInput,4);
+            responseData[i] = HammingCodeApi.receiveData(tableInput, 4);
         }
 
         HammingCodeText x = new HammingCodeText();
         x.setTable(responseData);
         session.setAttribute("tablicaReponse", (HammingCodeText) x);
 
+        // Odczytanie raportu z nagłówka "Report"
+        String report = request.getHeader("Report");
+        session.setAttribute("raportReceiver", report);
+
         // Ustawienie typu zawartości odpowiedzi
         response.setContentType("application/json");
 
         response.sendRedirect("hammingReceiver.jsp");
-
     }
+
 }
